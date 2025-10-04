@@ -1,0 +1,84 @@
+<div class="pharmacies-container">
+  <h2>Search for pharmacies</h2>
+
+  <!-- Formularz wyszukiwania -->
+  <form [formGroup]="locationForm" (ngSubmit)="searchPharmacies()" class="search-form">
+    <div class="form-group">
+      <label for="city">Select city:</label>
+      <select id="city" formControlName="city" class="form-control">
+        @for(city of availableCities; track city.name) {
+          <option [value]="city.name">{{ city.displayName }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="locationForm.invalid || loading" class="search-button">
+        @if(loading) {
+          <span>Searching...</span>
+        } @else {
+          <span>Search pharmacies</span>
+        }
+      </button>
+    </div>
+  </form>
+
+  <!-- Komunikat o błędzie -->
+  @if(error) {
+    <div class="error-alert">{{ error }}</div>
+  }
+
+  <!-- Mapa -->
+  <div id="map" class="map-container"></div>
+
+  <!-- Filtry i lista znalezionych aptek -->
+  @if(pharmacies.length > 0) {
+    <div class="pharmacy-results">
+      <div class="filters">
+        <h3>Found pharmacies ({{ filteredPharmacies.length }})</h3>
+        <div class="filter-options">
+          <div class="filter-group">
+            <label for="isOpenNow">
+              <input type="checkbox" id="isOpenNow" [(ngModel)]="filters.isOpenNow" (change)="applyFilters()"> Only open now
+            </label>
+          </div>
+          <div class="filter-group">
+            <label for="sortBy">Sort by:</label>
+            <select id="sortBy" [(ngModel)]="filters.sortBy" (change)="applyFilters()">
+              <option value="name">Name</option>
+              <option value="distance">Distance</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="pharmacy-cards">
+        @for(pharmacy of filteredPharmacies; track pharmacy.id) {
+          <div class="pharmacy-card" [class.open-now]="isPharmacyOpenNow(pharmacy)">
+            <h4>{{ pharmacy.name }}</h4>
+            <p>{{ pharmacy.address }}</p>
+            @if(pharmacy.phone) {
+              <p><strong>Phone:</strong> {{ pharmacy.phone }}</p>
+            }
+            @if(pharmacy.openingHours) {
+              <p><strong>Opening hours:</strong> {{ pharmacy.openingHours }}</p>
+            }
+            @if(pharmacy.distance !== undefined) {
+              <p><strong>Distance:</strong> {{ pharmacy.distance.toFixed(1) }} km</p>
+            }
+            <div class="status-badge" [class.open]="isPharmacyOpenNow(pharmacy)">
+              {{ isPharmacyOpenNow(pharmacy) ? 'Open' : 'Closed' }}
+            </div>
+            <div class="pharmacy-actions">
+              <button (click)="showDirections(pharmacy)" class="directions-button">Get directions</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  } @else if (!loading && !error) {
+    <div class="no-results">
+      No pharmacies found in the selected location.
+    </div>
+  }
+</div>

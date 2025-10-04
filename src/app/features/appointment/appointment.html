@@ -1,0 +1,245 @@
+<div class="appointment-container">
+  <h2>Book a Doctor's Appointment in Poland</h2>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading doctors...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+    <button (click)="error = null" class="btn-secondary">Try again</button>
+  </div>
+
+  <div *ngIf="success" class="success-message">
+    <h2>Your appointment has been booked successfully!</h2>
+    <p>A confirmation has been sent to your email.</p>
+    <p>You will be redirected to the main page shortly.</p>
+  </div>
+
+  <div *ngIf="!loading && !error && !success" class="appointment-form">
+    <div class="steps-indicator">
+      <div class="step" [class.active]="currentStep === 1">1. Choose Doctor</div>
+      <div class="step" [class.active]="currentStep === 2">2. Select Date</div>
+      <div class="step" [class.active]="currentStep === 3">3. Your Details</div>
+    </div>
+
+    <!-- Step 1: Choose Doctor -->
+    <div *ngIf="currentStep === 1" class="step-content">
+      <h2>Select a Doctor</h2>
+      <p class="info-text">
+        All our doctors have different language capabilities. Look for doctors that speak your preferred language.
+      </p>
+
+      <div class="filter-options">
+        <label>
+          <input type="checkbox" [checked]="false"> Show only English-speaking doctors
+        </label>
+      </div>
+
+      <div class="doctors-list">
+        <div *ngFor="let doctor of doctors" class="doctor-card" (click)="selectDoctor(doctor.id)">
+          <h3>{{ doctor.name }}</h3>
+          <p class="specialty">{{ doctor.specialty }}</p>
+          <div class="doctor-languages">
+            <span *ngFor="let lang of doctor.languages" class="language-tag">
+              {{ lang.name }}
+            </span>
+          </div>
+          <p class="dates">Available slots: {{ doctor.availableDates.length }}</p>
+          <button class="btn-primary">Select</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Select Date -->
+    <div *ngIf="currentStep === 2" class="step-content">
+      <h2>Select Appointment Date</h2>
+      <p *ngIf="selectedDoctor" class="selected-info">
+        Selected doctor: {{ selectedDoctor.name }} ({{ selectedDoctor.specialty }})
+      </p>
+
+      <div class="dates-list">
+        <div *ngFor="let date of availableDates" class="date-card" (click)="selectDate(date)">
+          <div class="date-info">
+            <p class="day">{{ date | date:'EEE, d MMM yyyy' }}</p>
+            <p class="time">{{ date | date:'HH:mm' }}</p>
+          </div>
+          <button class="btn-primary">Select</button>
+        </div>
+      </div>
+
+      <div class="navigation-buttons">
+        <button (click)="goToPreviousStep()" class="btn-secondary">Back</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Patient Details -->
+    <div *ngIf="currentStep === 3" class="step-content">
+      <h2>Enter Your Details</h2>
+
+      <div class="summary">
+        <h3>Appointment Summary:</h3>
+        <p *ngIf="selectedDoctor"><strong>Doctor:</strong> {{ selectedDoctor.name }} ({{ selectedDoctor.specialty }})</p>
+        <p><strong>Date & Time:</strong> {{ formattedDate }}</p>
+
+        <div class="doctor-languages" *ngIf="selectedDoctor">
+          <p><strong>Doctor speaks:</strong></p>
+          <span *ngFor="let lang of selectedDoctor?.languages" class="language-tag">
+            {{ lang.name }}
+          </span>
+        </div>
+      </div>
+
+      <form [formGroup]="appointmentForm" (ngSubmit)="submitForm()">
+        <div class="form-group">
+          <label for="patientName">Full Name *</label>
+          <input
+            type="text"
+            id="patientName"
+            formControlName="patientName"
+            placeholder="e.g. John Smith"
+          >
+          <div *ngIf="appointmentForm.get('patientName')?.invalid && appointmentForm.get('patientName')?.touched" class="error-text">
+            Please enter your full name (at least 3 characters).
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="patientEmail">Email Address *</label>
+          <input
+            type="email"
+            id="patientEmail"
+            formControlName="patientEmail"
+            placeholder="e.g. john.smith@example.com"
+          >
+          <div *ngIf="appointmentForm.get('patientEmail')?.invalid && appointmentForm.get('patientEmail')?.touched" class="error-text">
+            Please enter a valid email address.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="patientPhone">Phone Number *</label>
+          <input
+            type="tel"
+            id="patientPhone"
+            formControlName="patientPhone"
+            placeholder="e.g. +48123456789"
+          >
+          <div *ngIf="appointmentForm.get('patientPhone')?.invalid && appointmentForm.get('patientPhone')?.touched" class="error-text">
+            Please enter a valid phone number (9-12 digits, can start with +).
+          </div>
+          <small class="help-text">Include country code (e.g. +48 for Poland)</small>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label>
+            <input
+              type="checkbox"
+              formControlName="isNonPolish"
+            > I am not a Polish citizen
+          </label>
+        </div>
+
+        <!-- Fields specific to non-Polish citizens -->
+        <div *ngIf="isNonPolish" class="foreign-citizen-section">
+          <h4>Information for Foreign Patients</h4>
+
+          <div class="form-group">
+            <label for="foreignerId">Passport or ID Number *</label>
+            <input
+              type="text"
+              id="foreignerId"
+              formControlName="foreignerId"
+              placeholder="e.g. AB1234567"
+            >
+            <div *ngIf="appointmentForm.get('foreignerId')?.invalid && appointmentForm.get('foreignerId')?.touched" class="error-text">
+              Please enter your passport or ID number.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="nationality">Nationality *</label>
+            <select
+              id="nationality"
+              formControlName="nationality"
+            >
+              <option value="">Select your nationality</option>
+              <option *ngFor="let nation of nationalities" [value]="nation">{{ nation }}</option>
+            </select>
+            <div *ngIf="appointmentForm.get('nationality')?.invalid && appointmentForm.get('nationality')?.touched" class="error-text">
+              Please select your nationality.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="preferredLanguage">Preferred Language *</label>
+            <select
+              id="preferredLanguage"
+              formControlName="preferredLanguage"
+            >
+              <option value="">Select preferred language</option>
+              <option *ngFor="let lang of availableLanguages" [value]="lang.code">{{ lang.name }}</option>
+            </select>
+            <div *ngIf="appointmentForm.get('preferredLanguage')?.invalid && appointmentForm.get('preferredLanguage')?.touched" class="error-text">
+              Please select your preferred language.
+            </div>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label>
+              <input
+                type="checkbox"
+                formControlName="interpreter"
+              > I need an interpreter for my visit
+            </label>
+            <small class="help-text">
+              Note: Interpreter services may have additional fees. We'll confirm availability after booking.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="insuranceType">Insurance Type *</label>
+          <select
+            id="insuranceType"
+            formControlName="insuranceType"
+          >
+            <option value="">Select insurance type</option>
+            <option *ngFor="let type of insuranceTypes" [value]="type">{{ type }}</option>
+          </select>
+          <div *ngIf="appointmentForm.get('insuranceType')?.invalid && appointmentForm.get('insuranceType')?.touched" class="error-text">
+            Please select your insurance type.
+          </div>
+          <small class="help-text">
+            You will need to present proof of insurance at your appointment. European Health Insurance Card (EHIC) is accepted.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Additional Information</label>
+          <textarea
+            id="notes"
+            formControlName="notes"
+            placeholder="Please provide any relevant information about your condition or special requirements"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div class="consent-section">
+          <p>By booking an appointment, you consent to our privacy policy and terms of service. We will process your personal data according to GDPR regulations.</p>
+        </div>
+
+        <div class="navigation-buttons">
+          <button type="button" (click)="goToPreviousStep()" class="btn-secondary">Back</button>
+          <button
+            type="submit"
+            class="btn-primary"
+            [disabled]="appointmentForm.invalid || submitting"
+          >
+            {{ submitting ? 'Booking...' : 'Book Appointment' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
