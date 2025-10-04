@@ -1,0 +1,227 @@
+.pharmacies-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .search-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+
+    .form-group {
+      margin-bottom: 15px;
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        color: #505050;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+
+      button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.2s;
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+
+      .search-button {
+        background-color: #3498db;
+        color: white;
+        flex-grow: 1;
+
+        &:hover:not(:disabled) {
+          background-color: #2980b9;
+        }
+      }
+
+      .location-button {
+        background-color: #2ecc71;
+        color: white;
+
+        &:hover:not(:disabled) {
+          background-color: #27ae60;
+        }
+      }
+    }
+  }
+
+  .error-alert {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+  }
+
+  .map-container {
+    height: 400px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .pharmacy-results {
+    .filters {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+
+      h3 {
+        margin: 0;
+        color: #2c3e50;
+      }
+
+      .filter-options {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+
+        .filter-group {
+          display: flex;
+          align-items: center;
+
+          label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            input[type="checkbox"] {
+              margin-right: 5px;
+            }
+          }
+
+          select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+          }
+        }
+      }
+    }
+
+    .pharmacy-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+
+      .pharmacy-card {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: relative;
+        border-left: 5px solid #e74c3c;  // Default closed border
+
+        &.open-now {
+          border-left-color: #2ecc71;  // Green border for open pharmacies
+        }
+
+        h4 {
+          margin-top: 0;
+          margin-bottom: 10px;
+          color: #2c3e50;
+        }
+
+        p {
+          margin: 8px 0;
+          color: #505050;
+        }
+
+        .status-badge {
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          padding: 5px 10px;
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: 600;
+          background-color: #e74c3c;
+          color: white;
+
+          &.open {
+            background-color: #2ecc71;
+          }
+        }
+
+        .pharmacy-actions {
+          margin-top: 15px;
+          display: flex;
+          justify-content: flex-end;
+
+          .directions-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+
+            &:hover {
+              background-color: #2980b9;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .no-results {
+    padding: 30px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    color: #6c757d;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  .pharmacies-container {
+    .filters {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+
+      h3 {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
