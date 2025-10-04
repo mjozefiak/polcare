@@ -3,10 +3,10 @@
   <!-- Chat Header -->
   <div class="chat-panel__header">
     <div class="chat-panel__header-content">
-      <div class="chat-panel__header-icon">🏥</div>
-      <div class="chat-panel__header-text">
-        <h3>Health Assistant</h3>
-        <span class="status">Online</span>
+      <div class="chat-panel__header-icon-placeholder"></div>
+      <div class="chat-panel__header-info">
+        <h3 class="chat-panel__header-title">Health Assistant</h3>
+        <span class="chat-panel__header-status">Online</span>
       </div>
     </div>
   </div>
@@ -20,17 +20,10 @@
       [class.message--user]="!message.isAssistant"
       [class.message--loading]="message.type === 'loading'"
     >
-      <!-- Message Avatar -->
-      <div class="message__avatar" *ngIf="message.isAssistant">
-        @if (message.type === 'diagnosis') {
-        <span class="message__avatar--medical">🏥</span>
-        } @else if (message.type === 'pharmacy_suggestion') {
-        <span class="message__avatar--pharmacy">💊</span>
-        } @else {
-        <span class="message__avatar--assistant">🤖</span>
-        }
+      <!-- Message Avatar Placeholder -->
+      <div class="message__avatar">
+        <span class="message__avatar-placeholder"></span>
       </div>
-
       <!-- Message Content -->
       <div class="message__content">
         <div class="message__content-bubble">
@@ -48,11 +41,6 @@
         <div class="message__content-time">
           {{ message.timestamp | date : "short" }}
         </div>
-      </div>
-
-      <!-- User Avatar -->
-      <div class="message__avatar" *ngIf="!message.isAssistant">
-        <span class="message__avatar--user">👤</span>
       </div>
     </div>
     }
