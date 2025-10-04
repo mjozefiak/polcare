@@ -5,7 +5,7 @@ import { CardComponent, InsuranceCardData } from '../../ui/card/card.component';
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CardComponent],
+  imports: [CardComponent, ChatComponent],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

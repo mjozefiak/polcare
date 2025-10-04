@@ -4,9 +4,11 @@
   min-height: 100vh;
   display: flex;
   background-image: url("../../assets/background.svg");
-  background-size: cover;
-  background-position: center;
+  background-size: contain;
+  background-position: top;
   background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
 
   @include respond-to(md) {
     flex-direction: column;
@@ -157,4 +159,14 @@
 
 .chat-widget {
   margin-top: 16px;
+}
+
+.chat-section-container {
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
 }
