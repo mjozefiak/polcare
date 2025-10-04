@@ -1,16 +1,25 @@
-import {Routes} from '@angular/router';
+import { Routes } from '@angular/router';
+import { landingRoutes } from './features/landing/landing.routes';
 
 export const routes: Routes = [
   {
     path: 'insurance',
-    loadChildren: () => import('./features/insurance/insurance.routes').then(m => m.routes)
+    loadChildren: () =>
+      import('./features/insurance/insurance.routes').then((m) => m.routes),
   },
   {
     path: 'pharmacies',
-    loadComponent: () => import('./features/pharmacies/pharmacies').then(m => m.Pharmacies),
+    loadComponent: () =>
+      import('./features/pharmacies/pharmacies').then((m) => m.Pharmacies),
   },
   {
     path: 'appointment',
-    loadComponent: () => import('./features/appointment/appointment').then(m => m.Appointment),
+    loadComponent: () =>
+      import('./features/appointment/appointment').then((m) => m.Appointment),
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./features/landing/landing.routes').then((m) => m.landingRoutes),
   },
 ];
