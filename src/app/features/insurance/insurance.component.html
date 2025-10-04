@@ -1,0 +1,114 @@
+@if (!confirming) {
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="insuranceForm" class="insurance">
+
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input formControlName="fullName" id="fullName" placeholder="Enter your full name" type="text"/>
+      @if (insuranceForm.get('fullName')?.invalid && insuranceForm.get('fullName')?.touched) {
+        <div class="error-message">Name is required.</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input formControlName="dob" id="dob" type="date"/>
+      @if (insuranceForm.get('dob')?.invalid && insuranceForm.get('dob')?.touched) {
+        <div class="error-message">Date of birth is required.</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input formControlName="email" id="email" placeholder="you@example.com" type="email"/>
+      @if (insuranceForm.get('email')?.invalid && insuranceForm.get('email')?.touched) {
+        <div class="error-message">Enter a valid email.</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input formControlName="phone" id="phone" placeholder="+1 555 123 4567" type="tel"/>
+      @if (insuranceForm.get('phone')?.invalid && insuranceForm.get('phone')?.touched) {
+        <div class="error-message">Phone is required.</div>
+      }
+    </div>
+
+    <div class="insurance-type-cards">
+      <div
+        (click)="selectInsuranceType(insuranceTypes.Health)"
+        [class.selected]="insuranceForm.get('insuranceType')?.value === insuranceTypes.Health"
+        aria-pressed="{{insuranceForm.get('insuranceType')?.value === insuranceTypes.Health}}"
+        class="card"
+        role="button"
+        tabindex="0"
+      >
+        <h3>Health Insurance</h3>
+        <p>Comprehensive health coverage for you and your family.</p>
+      </div>
+
+      <div
+        (click)="selectInsuranceType(insuranceTypes.Life)"
+        [class.selected]="insuranceForm.get('insuranceType')?.value === insuranceTypes.Life"
+        aria-pressed="{{insuranceForm.get('insuranceType')?.value === insuranceTypes.Life}}"
+        class="card"
+        role="button"
+        tabindex="0"
+      >
+        <h3>Life Insurance</h3>
+        <p>Protect your loved ones with a reliable life insurance plan.</p>
+      </div>
+
+      <div
+        (click)="selectInsuranceType(insuranceTypes.Auto)"
+        [class.selected]="insuranceForm.get('insuranceType')?.value === insuranceTypes.Auto"
+        aria-pressed="{{insuranceForm.get('insuranceType')?.value === insuranceTypes.Auto}}"
+        class="card"
+        role="button"
+        tabindex="0"
+      >
+        <h3>Auto Insurance</h3>
+        <p>Coverage for your vehicle against accidents and theft.</p>
+      </div>
+    </div>
+
+    @if (insuranceForm.get('insuranceType')?.invalid && insuranceForm.get('insuranceType')?.touched) {
+      <div class="error-message centered">Please select insurance type.</div>
+    }
+
+    <div class="form-group">
+      <label for="coverageAmount">Coverage Amount</label>
+      <input formControlName="coverageAmount" id="coverageAmount" min="0" placeholder="Enter coverage amount"
+             type="number"/>
+      @if (insuranceForm.get('coverageAmount')?.invalid && insuranceForm.get('coverageAmount')?.touched) {
+        <div class="error-message">Enter a valid coverage amount.</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="startDate">Start Date</label>
+      <input formControlName="startDate" id="startDate" type="date"/>
+      @if (insuranceForm.get('startDate')?.invalid && insuranceForm.get('startDate')?.touched) {
+        <div class="error-message">Start date is required.</div>
+      }
+    </div>
+
+    <button
+      [disabled]="insuranceForm.invalid"
+      class="submit-btn"
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+} @else {
+  <div class="insurance insurance--confirm">
+    <h2>Are you sure you want to submit?</h2>
+    <p>Please confirm that all information is correct.</p>
+
+    <div class="confirm-buttons">
+      <button class="submit-btn" (click)="confirmSubmit()">Yes, Submit</button>
+      <button class="cancel-btn" (click)="cancelConfirm()">No, Go Back</button>
+    </div>
+  </div>
+}

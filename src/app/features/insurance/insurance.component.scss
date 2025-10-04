@@ -1,0 +1,196 @@
+.insurance {
+  max-width: 960px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #222;
+    }
+
+    input {
+      padding: 0.6rem 0.75rem;
+      font-size: 1rem;
+      border: 1.5px solid #ccc;
+      border-radius: 6px;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+      }
+    }
+  }
+
+  .error-message {
+    color: #d9534f;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+
+  .insurance-type-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+
+    .card {
+      flex: 1 1 calc(33.333% - 1rem);
+      min-width: 280px;
+      background-color: #f8f9fa;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+        color: #003366;
+      }
+
+      p {
+        font-size: 0.95rem;
+        color: #555;
+        flex-grow: 1;
+      }
+
+      .card-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+
+        button {
+          padding: 0.5rem 1.25rem;
+          font-size: 1rem;
+          font-weight: 600;
+          border-radius: 6px;
+          border: none;
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
+
+        .select-btn {
+          background-color: #007bff;
+          color: white;
+
+          &:hover {
+            background-color: #0056b3;
+          }
+        }
+
+        .more-btn {
+          background-color: transparent;
+          color: #007bff;
+          border: 2px solid #007bff;
+
+          &:hover {
+            background-color: #007bff;
+            color: white;
+          }
+        }
+      }
+
+      &.selected {
+        border-color: #007bff;
+        background-color: #eaf4ff;
+      }
+    }
+  }
+
+  .submit-btn {
+    align-self: center;
+    padding: 1rem 2rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    background-color: #d9534f;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:disabled {
+      background-color: #e6a3a3;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: #b94040;
+    }
+  }
+
+  .centered {
+    text-align: center;
+  }
+}
+
+.insurance--confirm {
+  text-align: center;
+
+  h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 2rem;
+  }
+
+  .confirm-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background-color: #28a745;
+      color: white;
+
+      &:hover {
+        background-color: #218838;
+      }
+    }
+
+    .cancel-btn {
+      background-color: transparent;
+      border: 2px solid #6c757d;
+      color: #6c757d;
+
+      &:hover {
+        background-color: #6c757d;
+        color: white;
+      }
+    }
+  }
+}
