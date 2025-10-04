@@ -122,3 +122,39 @@
     }
   }
 }
+
+.chat-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.chat-info {
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+  width: 100%;
+}
+
+.chat-title {
+  font-size: 2rem;
+  color: #000;
+  margin-bottom: 24px;
+  font-weight: bold;
+}
+
+.chat-description {
+  color: #333;
+  font-size: 1rem;
+}
+
+.chat-image img {
+  max-width: 440px;
+  margin-top: 144px;
+  height: auto;
+}
+
+.chat-widget {
+  margin-top: 16px;
+}
