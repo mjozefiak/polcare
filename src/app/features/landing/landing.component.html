@@ -1,10 +1,26 @@
-<div class="landing-container">
-  <h1>Welcome to PoliCARE</h1>
-  <p>
-    Your trusted travel health insurance companion. Get instant health
-    assistance and connect with local pharmacies during your visit to Poland.
-  </p>
+<div class="landing-page">
+  <div class="landing-page__container">
+    <div class="landing-page__hero">
+      <h1 class="landing-page__hero__title">
+        Catchy page title or our company motto
+      </h1>
+      <p class="landing-page__hero__description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <button class="button button-secondary">Learn more</button>
+    </div>
 
-  <!-- Chat Widget positioned at root level -->
-  <app-chat></app-chat>
+    <!-- Insurance Cards Section -->
+    <div class="landing-page__cards">
+      @for (card of insuranceCards; track $index) {
+      <app-card
+        [cardData]="card"
+        (buttonClick)="onCardButtonClick()"
+        class="insurance-card-item"
+      >
+      </app-card>
+      }
+    </div>
+  </div>
 </div>

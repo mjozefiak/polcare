@@ -1,0 +1,19 @@
+<div class="insurance-card">
+  <!-- Title -->
+  <h3 class="card-title">{{ cardData().title }}</h3>
+
+  <!-- Pricing -->
+  <div class="card-pricing">
+    <span class="price">{{ cardData().price }}</span>
+    <span class="separator">|</span>
+    <span class="people">{{ cardData().people }}</span>
+  </div>
+
+  <!-- Description -->
+  <p class="card-description">{{ cardData().description }}</p>
+
+  <!-- Button -->
+  <button class="card-button" (click)="onButtonClick()">
+    {{ cardData().buttonText }}
+  </button>
+</div>
