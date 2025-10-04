@@ -3,6 +3,11 @@ import { landingRoutes } from './features/landing/landing.routes';
 
 export const routes: Routes = [
   {
+    path: 'insurance',
+    loadChildren: () =>
+      import('./features/insurance/insurance.routes').then((m) => m.routes),
+  },
+  {
     path: 'pharmacies',
     loadComponent: () =>
       import('./features/pharmacies/pharmacies').then((m) => m.Pharmacies),
