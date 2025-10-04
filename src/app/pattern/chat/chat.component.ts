@@ -30,24 +30,16 @@ export class ChatComponent implements OnInit {
 
   // Public signals for template
   readonly messages = this.chatState.messages;
-  readonly isOpen = this.chatState.isOpen;
   readonly isLoading = this.chatState.isLoading;
-  readonly hasUnreadMessages = this.chatState.hasUnreadMessages;
 
   // User input
   userInput = '';
 
   ngOnInit(): void {
     console.log('ChatComponent initialized');
-  }
-  /**
-   * Toggles chat visibility
-   */
-  toggleChat(): void {
-    this.chatState.toggleChat();
 
-    if (this.chatState.isOpen() && this.messages().length === 0) {
-      // Add welcome message when chat opens for the first time
+    // Add welcome message on initialization if chat is empty
+    if (this.messages().length === 0) {
       this.addWelcomeMessage();
     }
   }

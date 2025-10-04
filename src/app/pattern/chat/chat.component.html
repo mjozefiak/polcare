@@ -1,180 +1,135 @@
-<!-- Chat Widget Container -->
-<div class="chat-widget">
-  <!-- Floating Chat Bubble -->
-  <button
-    class="chat-widget__bubble"
-    [class.chat-widget__bubble--unread]="hasUnreadMessages()"
-    (click)="toggleChat()"
-    aria-label="Open health assistant chat"
-  >
-    <svg
-      class="chat-widget__icon"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-    >
-      <path
-        d="M12 2c5.33 4 8 8.5 8 14H4c0-5.5 2.67-10 8-14zm0 2c-4.05 3.7-6 7.3-6 12h12c0-4.7-1.95-8.3-6-12z"
-      />
-      <path
-        d="M12 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 3c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 3c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
-      />
-    </svg>
-
-    <!-- Unread indicator -->
-    <span class="chat-widget__unread-indicator" *ngIf="hasUnreadMessages()"
-      >●</span
-    >
-  </button>
-
-  <!-- Chat Panel -->
-  @if (isOpen()) {
-  <div class="chat-panel">
-    <!-- Chat Header -->
-    <div class="chat-panel__header">
-      <div class="chat-panel__header-content">
-        <div class="chat-panel__header-icon">🏥</div>
-        <div class="chat-panel__header-text">
-          <h3>Health Assistant</h3>
-          <span class="status">Online</span>
-        </div>
-      </div>
-      <button
-        class="chat-panel__header-close-btn"
-        (click)="toggleChat()"
-        aria-label="Close chat"
-      >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-          <path
-            d="M10 8.586L15.357 3.23 16.771 4.644 11.414 10l5.357 5.357-1.414 1.414L10 11.414l-5.357 5.357-1.414-1.414L8.586 10 3.23 4.644 4.644 3.23 10 8.586z"
-          />
-        </svg>
-      </button>
-    </div>
-
-    <!-- Chat Messages Area -->
-    <div class="chat-panel__messages" #messagesContainer>
-      @for (message of messages(); track message.id) {
-      <div
-        class="message"
-        [class.message--assistant]="message.isAssistant"
-        [class.message--loading]="message.type === 'loading'"
-      >
-        <!-- Message Avatar -->
-        <div class="message__avatar" *ngIf="message.isAssistant">
-          @if (message.type === 'diagnosis') {
-          <span class="message__avatar--medical">🏥</span>
-          } @else if (message.type === 'pharmacy_suggestion') {
-          <span class="message__avatar--pharmacy">💊</span>
-          } @else {
-          <span class="message__avatar--assistant">🤖</span>
-          }
-        </div>
-
-        <!-- Message Content -->
-        <div class="message__content">
-          <div class="message__content-bubble">
-            @if (message.type === 'loading') {
-            <div class="message__content-loading">
-              <span class="message__content-loading-dot"></span
-              ><span class="message__content-loading-dot"></span
-              ><span class="message__content-loading-dot"></span>
-            </div>
-            <span>{{ message.content }}</span>
-            } @else {
-            {{ message.content }}
-            }
-          </div>
-          <div class="message__content-time">
-            {{ message.timestamp | date : "short" }}
-          </div>
-        </div>
-
-        <!-- User Avatar -->
-        <div class="message__avatar" *ngIf="!message.isAssistant">
-          <span class="message__avatar--user">👤</span>
-        </div>
-      </div>
-      }
-
-      <!-- Scroll to bottom anchor -->
-      <div class="scroll-anchor"></div>
-    </div>
-
-    <!-- Chat Input Area -->
-    <div class="chat-panel__input">
-      <div class="chat-panel__input-container">
-        <textarea
-          [(ngModel)]="userInput"
-          (keydown)="onEnterKey($event)"
-          placeholder="Describe your symptoms or ask a question..."
-          class="chat-panel__input-field"
-          rows="1"
-          [disabled]="isLoading()"
-        ></textarea>
-
-        <button
-          class="chat-panel__input-btn"
-          (click)="sendMessage()"
-          [disabled]="!userInput.trim() || isLoading()"
-          aria-label="Send message"
-        >
-          @if (isLoading()) {
-          <svg
-            class="chat-panel__input-btn-spinner"
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-          >
-            <circle
-              cx="10"
-              cy="10"
-              r="8"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              opacity="0.3"
-            />
-            <circle
-              cx="10"
-              cy="10"
-              r="8"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-dasharray="12"
-              stroke-dashoffset="6"
-            />
-          </svg>
-          } @else {
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-          </svg>
-          }
-        </button>
-      </div>
-
-      <!-- Chat Controls -->
-      <div class="chat-panel__controls">
-        <button
-          class="chat-panel__control-btn"
-          (click)="clearChat()"
-          aria-label="Clear chat history"
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path
-              d="M11 2H5c-.6 0-1 .4-1 1v10c0 .6.4 1 1 1h6c.6 0 1-.4 1-1V3c0-.6-.4-1-1-1zM5 1v-.5zM7 5v6h2V5H7z"
-            />
-          </svg>
-          Clear History
-        </button>
-
-        <span class="chat-panel__disclaimer">
-          ⚠️ This is not a substitute for professional medical advice
-        </span>
+<!-- Chat Panel -->
+<div class="chat-panel">
+  <!-- Chat Header -->
+  <div class="chat-panel__header">
+    <div class="chat-panel__header-content">
+      <div class="chat-panel__header-icon">🏥</div>
+      <div class="chat-panel__header-text">
+        <h3>Health Assistant</h3>
+        <span class="status">Online</span>
       </div>
     </div>
   </div>
-  }
+
+  <!-- Chat Messages Area -->
+  <div class="chat-panel__messages" #messagesContainer>
+    @for (message of messages(); track message.id) {
+    <div
+      class="message"
+      [class.message--assistant]="message.isAssistant"
+      [class.message--user]="!message.isAssistant"
+      [class.message--loading]="message.type === 'loading'"
+    >
+      <!-- Message Avatar -->
+      <div class="message__avatar" *ngIf="message.isAssistant">
+        @if (message.type === 'diagnosis') {
+        <span class="message__avatar--medical">🏥</span>
+        } @else if (message.type === 'pharmacy_suggestion') {
+        <span class="message__avatar--pharmacy">💊</span>
+        } @else {
+        <span class="message__avatar--assistant">🤖</span>
+        }
+      </div>
+
+      <!-- Message Content -->
+      <div class="message__content">
+        <div class="message__content-bubble">
+          @if (message.type === 'loading') {
+          <div class="message__content-loading">
+            <span class="message__content-loading-dot"></span
+            ><span class="message__content-loading-dot"></span
+            ><span class="message__content-loading-dot"></span>
+          </div>
+          <span>{{ message.content }}</span>
+          } @else {
+          {{ message.content }}
+          }
+        </div>
+        <div class="message__content-time">
+          {{ message.timestamp | date : "short" }}
+        </div>
+      </div>
+
+      <!-- User Avatar -->
+      <div class="message__avatar" *ngIf="!message.isAssistant">
+        <span class="message__avatar--user">👤</span>
+      </div>
+    </div>
+    }
+
+    <!-- Scroll to bottom anchor -->
+    <div #scrollAnchor class="scroll-anchor"></div>
+  </div>
+
+  <!-- Chat Input Area -->
+  <div class="chat-panel__input">
+    <div class="chat-panel__input-container">
+      <textarea
+        class="chat-panel__input-field"
+        [(ngModel)]="userInput"
+        placeholder="Type your symptoms or health concern..."
+        (keydown)="onEnterKey($event)"
+        [disabled]="isLoading()"
+      ></textarea>
+      <button
+        class="chat-panel__input-btn"
+        (click)="sendMessage()"
+        [disabled]="isLoading() || !userInput.trim()"
+        aria-label="Send message"
+      >
+        @if (isLoading()) {
+        <svg
+          class="chat-panel__input-btn-spinner"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 6v6l4 2" />
+        </svg>
+        } @else {
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M22 2L11 13" />
+          <path d="M22 2L15 22L11 13L2 9L22 2Z" />
+        </svg>
+        }
+      </button>
+    </div>
+    <div class="chat-panel__controls">
+      <button class="chat-panel__controls-btn" (click)="clearChat()">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M3 6h18" />
+          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+          <line x1="10" y1="11" x2="10" y2="17" />
+          <line x1="14" y1="11" x2="14" y2="17" />
+        </svg>
+        Clear chat
+      </button>
+      <div class="chat-panel__disclaimer">
+        This is not a substitute for professional medical advice
+      </div>
+    </div>
+  </div>
 </div>

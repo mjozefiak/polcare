@@ -303,7 +303,7 @@ export class GeminiAIService {
         ? `Previous conversation: ${conversationHistory.slice(-3).join('\n')}\n`
         : '';
 
-    return `You are a medical AI assistant helping travelers in Poland with initial health assessments. 
+    return `You are a medical AI assistant helping travelers in Poland with initial health assessments.
 
 CONTEXT:
 - User is currently experiencing: ${symptoms}

@@ -5,7 +5,7 @@ import { ChatMessage, MessageThread } from '../models';
 export class ChatStateService {
   // Core chat state signals
   private messagesSignal: WritableSignal<ChatMessage[]> = signal([]);
-  private isOpenSignal: WritableSignal<boolean> = signal(false);
+  private isOpenSignal: WritableSignal<boolean> = signal(true); // Zmieniono z false na true
   private isLoadingSignal: WritableSignal<boolean> = signal(false);
   private currentThreadSignal: WritableSignal<MessageThread | null> =
     signal(null);
