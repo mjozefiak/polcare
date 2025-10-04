@@ -1,17 +1,36 @@
-// Zmienne kolorów
-$primary-color: #3498db;
-$secondary-color: #2c3e50;
-$success-color: #2ecc71;
-$warning-color: #f1c40f;
-$danger-color: #e74c3c;
-$light-gray: #ecf0f1;
-$medium-gray: #95a5a6;
-$dark-gray: #7f8c8d;
+// Zmienne kolorów - PoliCare Design System
+$primary-color: #3b82f6; // Soft blue for accents and buttons
+$primary-light: #60a5fa; // Lighter blue for hover states
+$secondary-color: #1e293b; // Dark blue-gray for headings
+$accent-color: #2563eb; // Blue for pricing text
+$text-primary: #1f2937; // Dark gray for main text
+$text-secondary: #6b7280; // Medium gray for secondary text
+$background-primary: #ffffff; // White background
+$background-gradient: linear-gradient(
+  135deg,
+  #f0f9ff 0%,
+  #e0f2fe 100%
+); // Soft blue gradient
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$danger-color: #ef4444;
+$light-gray: #f8fafc;
+$medium-gray: #94a3b8;
+$dark-gray: #475569;
+
+$black-100: #000000;
+$white-100: #ffffff;
 
 // Eksport zmiennych jako zmienne CSS
 :root {
   --primary-color: #{$primary-color};
+  --primary-light: #{$primary-light};
   --secondary-color: #{$secondary-color};
+  --accent-color: #{$accent-color};
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --background-primary: #{$background-primary};
+  --background-gradient: #{$background-gradient};
   --success-color: #{$success-color};
   --warning-color: #{$warning-color};
   --danger-color: #{$danger-color};
@@ -29,21 +48,27 @@ $breakpoint-lg: 1200px;
 // Mixiny dla responsywnych mediów
 @mixin respond-to($breakpoint) {
   @if $breakpoint == xs {
-    @media (max-width: $breakpoint-xs) { @content; }
-  }
-  @else if $breakpoint == sm {
-    @media (max-width: $breakpoint-sm) { @content; }
-  }
-  @else if $breakpoint == md {
-    @media (max-width: $breakpoint-md) { @content; }
-  }
-  @else if $breakpoint == lg {
-    @media (max-width: $breakpoint-lg) { @content; }
+    @media (max-width: $breakpoint-xs) {
+      @content;
+    }
+  } @else if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (max-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) {
+      @content;
+    }
   }
 }
 
 // Typografia
-$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-base: "Roboto", sans-serif;
+$font-family-secondary: "Inter", sans-serif;
 $font-size-base: 1rem;
 $font-weight-normal: 400;
 $font-weight-medium: 500;

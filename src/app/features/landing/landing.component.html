@@ -1,21 +1,47 @@
-<div class="landing-container">
-  <h1>Welcome to PoliCARE</h1>
-  <p>
-    Your trusted travel health insurance companion. Get instant health
-    assistance and connect with local pharmacies during your visit to Poland.
-  </p>
-
-  <!-- Chat Widget positioned at root level -->
-  <div class="chat-section">
-    <div class="chat-info">
-      <span class="chat-title">Expert Medical <br>Consultations Anytime</span>
-      <span class="chat-description">Connect instantly with qualified healthcare professionals for reliable medical advice, no matter where you are. Connect instantly with qualified. Connect instantly with qualified healthcare professionals.</span>
+<div class="landing-page">
+  <div class="landing-page__container">
+    <div class="landing-page__hero">
+      <h1 class="landing-page__hero__title">
+        Catchy page title or our company motto
+      </h1>
+      <p class="landing-page__hero__description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <button class="button button-secondary">Learn more</button>
     </div>
-    <div class="chat-image">
-      <img src="doctor.png" alt="Doctor Consultation" />
+
+    <!-- Insurance Cards Section -->
+    <div class="landing-page__cards">
+      @for (card of insuranceCards; track $index) {
+      <app-card
+        [cardData]="card"
+        (buttonClick)="onCardButtonClick()"
+        class="insurance-card-item"
+      >
+      </app-card>
+      }
     </div>
   </div>
-  <div class="chat-widget">
-    <app-chat></app-chat>
+  <div class="chat-section-container">
+    <div class="chat-section">
+      <div class="chat-info">
+        <span class="chat-title"
+          >Expert Medical <br />Consultations Anytime</span
+        >
+        <span class="chat-description"
+          >Connect instantly with qualified healthcare professionals for
+          reliable medical advice, no matter where you are. Connect instantly
+          with qualified. Connect instantly with qualified healthcare
+          professionals.</span
+        >
+      </div>
+      <div class="chat-image">
+        <img src="doctor.png" alt="Doctor Consultation" />
+      </div>
+    </div>
+    <div class="chat-widget">
+      <app-chat></app-chat>
+    </div>
   </div>
 </div>
