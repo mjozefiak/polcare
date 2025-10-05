@@ -14,28 +14,28 @@ import { ServicesCardComponent } from '../../ui/services-card/services-card.comp
 export class LandingComponent {
   insuranceCards: InsuranceCardData[] = [
     {
-      title: 'Buy insurance',
-      price: 'from 130 zł',
-      people: '2 people',
+      title: 'Basic Health Plan',
+      price: 'from 99 zł',
+      people: 'per month',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      buttonText: 'Learn more',
+        'Essential healthcare coverage including AI consultations, basic pharmacy access, and emergency care. Perfect for individuals seeking affordable protection.',
+      buttonText: 'Get Started',
     },
     {
-      title: 'Buy insurance',
-      price: 'from 130 zł',
-      people: '2 people',
+      title: 'Family Care Plus',
+      price: 'from 249 zł',
+      people: 'for family',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      buttonText: 'Learn more',
+        'Comprehensive family coverage with unlimited AI consultations, prescription delivery, and priority appointment booking for up to 4 family members.',
+      buttonText: 'Choose Plan',
     },
     {
-      title: 'Buy insurance',
-      price: 'from 230 zł',
-      people: '2 people',
+      title: 'Premium Health',
+      price: 'from 199 zł',
+      people: 'per month',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.',
-      buttonText: 'Learn more',
+        'Complete healthcare solution with 24/7 AI support, express pharmacy delivery, specialist consultations, and premium insurance benefits.',
+      buttonText: 'Learn More',
     },
   ];
 

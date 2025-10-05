@@ -27,27 +27,27 @@ export class ServicesCardComponent {
 
   services: ServiceCardData[] = [
     {
-      title: 'Insurance',
-      price: '150 zł',
+      title: 'Health Insurance',
+      price: 'from 99 zł',
       people: 'per month',
-      description: 'Comprehensive health insurance coverage with access to top medical facilities and specialists.',
-      buttonText: 'View Plans',
+      description: 'Comprehensive health insurance plans tailored for Polish residents. Coverage includes AI consultations, pharmacy benefits, and medical appointments across Poland.',
+      buttonText: 'View Insurance Plans',
       route: '/insurance'
     },
     {
-      title: 'Appointments',
-      price: '80 zł',
+      title: 'Medical Appointments',
+      price: 'from 120 zł',
       people: 'per visit',
-      description: 'Book appointments with qualified doctors and specialists. Fast and convenient scheduling.',
-      buttonText: 'Book Now',
+      description: 'Book appointments with qualified healthcare professionals across Poland. Fast scheduling, verified doctors, and seamless integration with your insurance plan.',
+      buttonText: 'Book Appointment',
       route: '/appointment'
     },
     {
-      title: 'Pharmacies',
+      title: 'Pharmacy Network',
       price: 'Free',
       people: 'service',
-      description: 'Find nearby pharmacies, check medication availability, and get prescription information.',
-      buttonText: 'Find Pharmacy',
+      description: 'Access our extensive pharmacy network across Poland. Find medications, check availability, get prescription deliveries, and manage your medication history.',
+      buttonText: 'Find Pharmacies',
       route: '/pharmacies'
     }
   ];
