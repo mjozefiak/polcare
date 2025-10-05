@@ -158,7 +158,7 @@
 }
 
 .chat-widget {
-  margin-top: 16px;
+  margin-top: -126px;
 }
 
 .chat-section-container {
@@ -169,4 +169,28 @@
   display: flex;
   flex-direction: column;
   gap: 100px;
+}
+
+// Prescription Delivery Section
+.prescription-section {
+  text-align: center;
+  margin: 3rem auto;
+  max-width: 60%;
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  &__description {
+    font-size: 1.125rem;
+    color: #6b7280;
+    margin: 0 auto;
+    line-height: 1.6;
+    text-align: center;
+  }
 }

@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ChatComponent } from '../../pattern/chat/chat.component';
 import { CardComponent, InsuranceCardData } from '../../ui/card/card.component';
+import { ServicesCardComponent } from '../../ui/services-card/services-card.component';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CardComponent, ChatComponent],
+  imports: [CardComponent, ChatComponent, ServicesCardComponent],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

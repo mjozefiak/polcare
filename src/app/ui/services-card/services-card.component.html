@@ -1,0 +1,24 @@
+<div class="services-container">
+  <h2 class="services-title">Our Services</h2>
+  <div class="services-grid">
+    <div class="service-card" *ngFor="let service of services">
+      <!-- Title -->
+      <h3 class="card-title">{{ service.title }}</h3>
+
+      <!-- Pricing -->
+      <div class="card-pricing">
+        <span class="price">{{ service.price }}</span>
+        <span class="separator">|</span>
+        <span class="people">{{ service.people }}</span>
+      </div>
+
+      <!-- Description -->
+      <p class="card-description">{{ service.description }}</p>
+
+      <!-- Button -->
+      <button class="card-button" (click)="onServiceClick(service.route)">
+        {{ service.buttonText }}
+      </button>
+    </div>
+  </div>
+</div>
